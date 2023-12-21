@@ -32,6 +32,14 @@ public class MatchControllerTests
         ShouldUpdateMatchResult("H");
     }
 
+    [Test]
+    public void away_goal()
+    {
+        GivenMatchResultFromRepo("H");
+        AfterActionDisplayResultShouldBe(EnumAction.AwayGoal, "1:1 (First Half)");
+        ShouldUpdateMatchResult("HA");
+    }
+
     private void ShouldUpdateMatchResult(string matchResult)
     {
         _matchRepo.Received()

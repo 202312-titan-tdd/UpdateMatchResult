@@ -3,4 +3,5 @@
 public enum EnumAction
 {
     HomeGoal=1,
+    AwayGoal=2,
 }
