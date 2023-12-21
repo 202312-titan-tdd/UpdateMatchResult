@@ -56,6 +56,14 @@ public class MatchControllerTests
         ShouldUpdateMatchResult("HA;");
     }
 
+    [Test]
+    public void cancel_1st_half_last_home_goal_when_2nd_half_start()
+    {
+        GivenMatchResultFromRepo("HAH;");
+        AfterActionDisplayResultShouldBe(EnumAction.CancelHomeGoal, "1:1 (Second Half)");
+        ShouldUpdateMatchResult("HA;");
+    }
+
     private void ShouldUpdateMatchResult(string matchResult)
     {
         _matchRepo.Received()
