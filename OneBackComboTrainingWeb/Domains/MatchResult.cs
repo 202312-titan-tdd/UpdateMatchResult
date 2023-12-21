@@ -15,6 +15,11 @@ public class MatchResult
         return $"{homeScore}:0 (First Half)";
     }
 
+    public string GetResult()
+    {
+        return _matchResult;
+    }
+
     public void HomeGoal()
     {
         _matchResult += "H";
