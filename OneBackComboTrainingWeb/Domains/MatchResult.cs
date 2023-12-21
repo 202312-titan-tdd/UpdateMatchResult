@@ -14,11 +14,17 @@ public class MatchResult
         _matchResult += "A";
     }
 
+    public void CancelHomeGoal()
+    {
+        _matchResult = _matchResult[..^1];
+    }
+
     public string GetDisplayResult()
     {
         var homeScore = _matchResult.Count(c => c == 'H');
         var awayScore = _matchResult.Count(c => c == 'A');
-        return $"{homeScore}:{awayScore} (First Half)";
+        var period = _matchResult.Contains(';') ? "Second" : "First";
+        return $"{homeScore}:{awayScore} ({period} Half)";
     }
 
     public string GetResult()
@@ -29,5 +35,10 @@ public class MatchResult
     public void HomeGoal()
     {
         _matchResult += "H";
+    }
+
+    public void NextPeriod()
+    {
+        _matchResult += ";";
     }
 }

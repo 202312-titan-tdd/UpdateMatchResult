@@ -27,6 +27,14 @@ public class MatchController
             case EnumAction.AwayGoal:
                 match.MatchResult.AwayGoal();
                 break;
+            case EnumAction.NextPeriod:
+                match.MatchResult.NextPeriod();
+                break;
+            case EnumAction.CancelHomeGoal:
+                match.MatchResult.CancelHomeGoal();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(action), action, null);
         }
 
         _matchRepo.UpdateMatchResult(match);
