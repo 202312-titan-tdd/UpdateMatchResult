@@ -10,6 +10,7 @@ public class MatchController
 {
     public string UpdateMatchResult(int matchId, EnumAction action)
     {
-        return "1:0 (First Half)";
+        var homeScore = "1";
+        return $"{homeScore}:0 (First Half)";
     }
 }
