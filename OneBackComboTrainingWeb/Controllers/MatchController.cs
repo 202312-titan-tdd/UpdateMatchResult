@@ -20,13 +20,7 @@ public class MatchController
     {
         var match = _matchRepo.GetMatch(matchId);
         match.MatchResult.HomeGoal();
-        
-        return GetDisplayResult();
-    }
 
-    private static string GetDisplayResult()
-    {
-        var homeScore = "1";
-        return $"{homeScore}:0 (First Half)";
+        return match.MatchResult.GetDisplayResult();
     }
 }

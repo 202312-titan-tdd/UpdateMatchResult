@@ -2,15 +2,21 @@
 
 public class MatchResult
 {
-    private readonly string _matchResult;
+    private string _matchResult;
 
     public MatchResult(string matchResult)
     {
         _matchResult = matchResult;
     }
 
+    public string GetDisplayResult()
+    {
+        var homeScore = _matchResult.Count(c => c == 'H');
+        return $"{homeScore}:0 (First Half)";
+    }
+
     public void HomeGoal()
     {
-        throw new NotImplementedException();
+        _matchResult += "H";
     }
 }
