@@ -20,6 +20,25 @@ public class MatchResult
         _matchResult += "A";
     }
 
+    public void CancelAwayGoal()
+    {
+        var isNextPeriod = false;
+        if (_matchResult.EndsWith(';'))
+        {
+            isNextPeriod = true;
+            _matchResult = _matchResult[..^1];
+        }
+
+        if (_matchResult.EndsWith('A'))
+        {
+            _matchResult = _matchResult[..^1] + (isNextPeriod ? ";" : "");
+        }
+        else
+        {
+            throw new MatchResultException() { MatchResult = this };
+        }
+    }
+
     public void CancelHomeGoal()
     {
         var isNextPeriod = false;

@@ -33,6 +33,9 @@ public class MatchController
             case EnumAction.CancelHomeGoal:
                 match.MatchResult.CancelHomeGoal();
                 break;
+            case EnumAction.CancelAwayGoal:
+                match.MatchResult.CancelAwayGoal();
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(action), action, null);
         }
