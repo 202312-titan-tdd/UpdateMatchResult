@@ -1,4 +1,10 @@
-﻿namespace OneBackComboTrainingWeb.Domains;
+﻿#region
+
+using OneBackComboTrainingWeb.Exceptions;
+
+#endregion
+
+namespace OneBackComboTrainingWeb.Domains;
 
 public class MatchResult
 {
@@ -16,7 +22,21 @@ public class MatchResult
 
     public void CancelHomeGoal()
     {
-        _matchResult = _matchResult[..^1];
+        var isNextPeriod = false;
+        if (_matchResult.EndsWith(';'))
+        {
+            isNextPeriod = true;
+            _matchResult = _matchResult[..^1];
+        }
+
+        if (_matchResult.EndsWith('H'))
+        {
+            _matchResult = _matchResult[..^1] + (isNextPeriod ? ";" : "");
+        }
+        else
+        {
+            throw new MatchResultException() { MatchResult = this };
+        }
     }
 
     public string GetDisplayResult()
