@@ -1,15 +1,19 @@
+using FluentAssertions;
+using OneBackComboTrainingWeb.Controllers;
+using OneBackComboTrainingWeb.Enums;
 
 namespace OneBackTests;
 
-public class Tests
+[TestFixture]
+public class MatchControllerTests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
 
     [Test]
-    public void Test1()
+    public void home_goal()
     {
+        var matchController = new MatchController();
+        int matchId=91;
+        var updateMatchResult = matchController.UpdateMatchResult(matchId, EnumAction.HomeGoal);
+        updateMatchResult.Should().Be("1:0 (First Half)");
     }
 }
