@@ -1,5 +1,6 @@
 ﻿#region
 
+using OneBackComboTrainingWeb.Enums;
 using OneBackComboTrainingWeb.Exceptions;
 
 #endregion
@@ -15,35 +16,6 @@ public class MatchResult
         _matchResult = matchResult;
     }
 
-    public void AwayGoal()
-    {
-        _matchResult += "A";
-    }
-
-    public void CancelAwayGoal()
-    {
-        CancelGoal('A');
-    }
-
-    public void CancelHomeGoal()
-    {
-        var isNextPeriod = false;
-        if (_matchResult.EndsWith(';'))
-        {
-            isNextPeriod = true;
-            _matchResult = _matchResult[..^1];
-        }
-
-        if (_matchResult.EndsWith('H'))
-        {
-            _matchResult = _matchResult[..^1] + (isNextPeriod ? ";" : "");
-        }
-        else
-        {
-            throw new MatchResultException() { MatchResult = this };
-        }
-    }
-
     public string GetDisplayResult()
     {
         var homeScore = _matchResult.Count(c => c == 'H');
@@ -57,14 +29,38 @@ public class MatchResult
         return _matchResult;
     }
 
-    public void HomeGoal()
+    public void UpdateBy(EnumAction action)
     {
-        _matchResult += "H";
+        switch (action)
+        {
+            case EnumAction.HomeGoal:
+                HomeGoal();
+                break;
+            case EnumAction.AwayGoal:
+                AwayGoal();
+                break;
+            case EnumAction.NextPeriod:
+                NextPeriod();
+                break;
+            case EnumAction.CancelHomeGoal:
+                CancelHomeGoal();
+                break;
+            case EnumAction.CancelAwayGoal:
+                CancelAwayGoal();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(action), action, null);
+        }
     }
 
-    public void NextPeriod()
+    private void AwayGoal()
     {
-        _matchResult += ";";
+        _matchResult += "A";
+    }
+
+    private void CancelAwayGoal()
+    {
+        CancelGoal('A');
     }
 
     private void CancelGoal(char team)
@@ -84,5 +80,20 @@ public class MatchResult
         {
             throw new MatchResultException() { MatchResult = this };
         }
+    }
+
+    private void CancelHomeGoal()
+    {
+        CancelGoal('H');
+    }
+
+    private void HomeGoal()
+    {
+        _matchResult += "H";
+    }
+
+    private void NextPeriod()
+    {
+        _matchResult += ";";
     }
 }
