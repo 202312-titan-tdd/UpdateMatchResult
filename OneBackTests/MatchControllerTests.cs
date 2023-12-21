@@ -58,14 +58,18 @@ public class MatchControllerTests
     }
 
     [Test]
+    public void cancel_away_goal_succeed()
+    {
+        GivenMatchResultFromRepo("HA;A");
+        AfterActionDisplayResultShouldBe(EnumAction.CancelAwayGoal, "1:1 (Second Half)");
+        ShouldUpdateMatchResult("HA;");
+    }
+
+    [Test]
     public void cancel_home_goal_fail()
     {
         GivenMatchResultFromRepo("HA;A");
-        Action action = () => _matchController.UpdateMatchResult(91, EnumAction.CancelHomeGoal);
-        action.Should()
-              .Throw<MatchResultException>()
-              .Where(exception => exception.MatchResult.GetResult() == "HA;A");
-        // Assert.Throws<MatchResultException>(action);
+        ShouldThrow<MatchResultException>(EnumAction.CancelHomeGoal, "HA;A");
     }
 
     [Test]
@@ -74,6 +78,14 @@ public class MatchControllerTests
         GivenMatchResultFromRepo("HAH;");
         AfterActionDisplayResultShouldBe(EnumAction.CancelHomeGoal, "1:1 (Second Half)");
         ShouldUpdateMatchResult("HA;");
+    }
+
+    private void ShouldThrow<TException>(EnumAction action, string matchResult) where TException : MatchResultException
+    {
+        Action updateAction = () => _matchController.UpdateMatchResult(91, action);
+        updateAction.Should()
+                    .Throw<TException>()
+                    .Where(exception => exception.MatchResult.GetResult() == matchResult);
     }
 
     private void ShouldUpdateMatchResult(string matchResult)

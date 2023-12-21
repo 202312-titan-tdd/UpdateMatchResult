@@ -6,4 +6,5 @@ public enum EnumAction
     AwayGoal=2,
     NextPeriod=3,
     CancelHomeGoal=4,
+    CancelAwayGoal=5,
 }
