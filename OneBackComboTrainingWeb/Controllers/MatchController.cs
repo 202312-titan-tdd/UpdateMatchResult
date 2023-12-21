@@ -19,7 +19,15 @@ public class MatchController
     public string UpdateMatchResult(int matchId, EnumAction action)
     {
         var match = _matchRepo.GetMatch(matchId);
-        match.MatchResult.HomeGoal();
+        switch (action)
+        {
+            case EnumAction.HomeGoal:
+                match.MatchResult.HomeGoal();
+                break;
+            case EnumAction.AwayGoal:
+                match.MatchResult.AwayGoal();
+                break;
+        }
 
         _matchRepo.UpdateMatchResult(match);
 

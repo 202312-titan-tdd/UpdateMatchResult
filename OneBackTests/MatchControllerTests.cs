@@ -40,6 +40,14 @@ public class MatchControllerTests
         ShouldUpdateMatchResult("HA");
     }
 
+    [Test]
+    public void next_period()
+    {
+        GivenMatchResultFromRepo("HA");
+        AfterActionDisplayResultShouldBe(EnumAction.NextPeriod, "1:1 (Second Half)");
+        ShouldUpdateMatchResult("HA;");
+    }
+
     private void ShouldUpdateMatchResult(string matchResult)
     {
         _matchRepo.Received()

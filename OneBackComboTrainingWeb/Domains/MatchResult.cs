@@ -9,10 +9,16 @@ public class MatchResult
         _matchResult = matchResult;
     }
 
+    public void AwayGoal()
+    {
+        _matchResult += "A";
+    }
+
     public string GetDisplayResult()
     {
         var homeScore = _matchResult.Count(c => c == 'H');
-        return $"{homeScore}:0 (First Half)";
+        var awayScore = _matchResult.Count(c => c == 'A');
+        return $"{homeScore}:{awayScore} (First Half)";
     }
 
     public string GetResult()
